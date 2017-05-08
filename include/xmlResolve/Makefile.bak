@@ -1,0 +1,3 @@
+-include ../ModuleCom.mak
+
+LIBNAME=libguimanage.a

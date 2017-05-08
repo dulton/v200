@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="gb2312"?>
+<info>
+	<sku>ZM-SH75D001-WA;ZM-SH74B001-WA;ZM-W1001-I;ZM-W1002-I;ZM-W1001-O;ZM-W1002-O;ZM-W0009;CH-S1R-WA</sku>
+	<version>
+		<uboot>V7.0.0.0</uboot>
+		<kernel>V7.0.0.0</kernel>
+		<rootfs>V7.0.0.0</rootfs>
+		<app>V7.9.0.14</app>	
+	</version>
+	<description>
+####Attention####
+YOU WILL NEED TO UPDATE YOUR APP TO THE LATEST VERSION TO BE COMPATIBLE WITH THIS NEW FIRMWARE.
+####Attention####
+
+An updated encryption method has been integrated into this new firmware, which will vastly enhance the security of your personal privacy in data transmission.
+The new firmware is only compatible with the latest app. 
+Please update to the latest app before upgrading firmware.
+	</description>
+</info>

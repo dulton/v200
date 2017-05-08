@@ -1,0 +1,482 @@
+
+#ifndef __MODULE_FUNC_INTERFACE_H__
+
+#define __MODULE_FUNC_INTERFACE_H__
+
+#include <signal.h>
+#include <sys/types.h>
+
+#include "filemanage.h"
+#include "logmanage.h"
+#include "parametermanage.h"
+#include "recordfileheader.h"
+#include "upgrademodule.h"
+#include "BufferManage.h"   
+#include "TdFeedDog.h"
+#include "hi_type.h"
+#include "VideoADCtrl.h"
+#include "McuCommunication.h"
+#include "VGAHi3120.h"
+#include "nvp5000.h"
+#include "mt9d131.h"
+
+#include "interfacedef.h"
+
+#define SUPPORT_WATCHDOG
+
+#ifdef SUPPORT_WATCHDOG
+#define REGISTER_DOG()	 \
+							CTrdDog tdDog; \
+							tdDog.RegisterDog();
+
+#define DECLARE_DOG		static CTrdDog tdDog
+
+#define REGISTER_DOG_EX()	tdDog.RegisterDog()
+
+#define DEBUG_WATCH_DOG(x) 	//fprintf(stderr, "%s: ptread_t = %d\n", x, tdDog.m_trdId)
+
+#define FEED_DOG()	tdDog.EatFood()
+
+#define UNREGISTER_DOG()	tdDog.DeregisterDog()
+#else
+#define REGISTER_DOG()	
+
+#define DECLARE_DOG		
+
+#define REGISTER_DOG_EX()	
+
+#define DEBUG_WATCH_DOG(x)	
+
+#define FEED_DOG()
+
+#define UNREGISTER_DOG()
+
+#endif
+
+
+void SignalRegister();
+
+void ChkFsSigchldHandler(int signum, siginfo_t *si, void *p);
+
+void  GlobalGetSystemTime(datetime_setting *datetime);
+
+int BCD2Decimal(unsigned char  bcd);
+
+int  Decimal2BCD( unsigned char  dec);
+
+int GetHDDExistStatus();
+
+int Check_HDD_Status(int *CurHdd);
+
+void GetEncodePara(CAMERA_PARA *para);
+
+void CheckRemovableBlkDeviceStatus();
+
+int CheckUpgradeFileExist(char *dirname, int *mode);
+
+int GetRemovableDeviceStatus();
+
+int  ReadyUpgradeProcess();
+
+int PubSetGPIODir(int io_num, int bitx, int value);
+
+int PubSetGPIOStatus(int io_num, int bitx, int value);
+
+int pubGetGPIOStatus(int io_num, int bitx, int *status);
+
+void PubSaveSystemParameter(SYSTEM_PARAMETER *para);
+
+void LoadSystemDefaultParameter(SYSTEM_PARAMETER *para);
+void RestoreDefault(void *para);
+
+SYSTEM_PARAMETER *PubGetParameterPtr();
+
+void PubReadSystemParameter(SYSTEM_PARAMETER *para);
+
+void CloseAllChannelRecord();
+
+int GetRecordStatus(int ch);
+
+int GetMotionInfo(int ch);
+
+void  RestartEncodeSystem();
+
+int  GetCurrentRecordFile(int ch, char *filename);
+
+int JudgeFileExist(char *filename);
+
+int JudgeDirExist(char *dirname);
+
+unsigned int GetCurrentMonthRecordStatus( int ide_num, FindFileType *findType);
+
+int AddRecordFileList(char *filename);
+
+int RenameRecordFile(char* Filename, int Mode, int RecType, int Flag);
+
+int PubCreatRecordFilelist(char * path);
+
+int  FindRecordFile(FindFileType *findType,RecordFileName *RecordFile, int mode, int searchmax);
+
+int ObtainSomeUserLog(FindUserLogItem * findtype, unsigned char maxcout, FindLogItems * items);
+
+
+int  ExportInOrOutSysParameter(int mode);
+
+ unsigned char PubGetMaxDate(int month , int year);
+
+int CopyFile2File(const char *source, const char *dest);
+
+void PubSyncSytemTime( datetime_setting datetime);
+
+void WaitForSystemTime();
+void BackupRealTime();
+void VerifySystemTime(datetime_setting  *psystime);
+
+void SetChkFsSigchldHandler();
+
+void ClearChkFsSigchldHandler();
+
+int  GetLastRecordDate(datetime_setting *datetime, int *HddId);
+
+int CheckFat32FileSystem(char *dev_name);
+
+int PubGetAllRecordDir(int hddId, RecordDateDirSearchType * SearchDateDir);
+
+int PubGetTvSysMode();
+
+int  InitSysParameter();
+
+int InitRecordSystem();
+
+void StartRecordSystem();
+
+void InitGuiSystem();
+
+void StartGUISystem();
+
+void ExitGuiSystem();
+
+int InitLogSystem();
+
+void StartSystemEncode();
+
+int PubGetSysParameter(int type, void * para);
+int PubSetSysParameter(int type, void * para);
+
+int PubGetSinglePara(int type, void * value);
+
+int PubCompeletPlay();
+
+void  PubDrawSpiltScreen(int OnOff);
+
+
+void DrawSplitLine(int onoff);
+
+
+int PubSetSystemTime(SystemDateTime *pSysTime);
+
+
+
+
+
+
+/*****************************************************************************
+函数功能:
+输入参数:
+输出参数:无
+返  回   值:成功返回0，否则返回-1, 
+使用说明:
+******************************************************************************/
+int InitDiskDevice();
+
+
+/*****************************************************************************
+函数功能: 根据已知的文件名得到指定通道的文件路径
+输入参数:@pFileName: 文件名
+			  @pFilePath:文件路径
+			  @ch: 通道号1~4
+输出参数:@DestFilePath:得到的有效路径
+返  回   值: 成功返回1，否则返回0, 
+使用说明:
+******************************************************************************/
+int GetValidFilePath(char *pFileName,  char *pFilePath, char *DestFilePath, int ch);
+
+
+
+/*****************************************************************************
+函数功能: 初始化解码模块
+输入参数:无
+输出参数:无
+返  回   值:成功返回0，否则返回-1, 
+使用说明:
+******************************************************************************/
+
+void InitDecodeSystem();
+
+int StartRealTimeProcess();
+
+int GetSystemTime(SystemDateTime *pSysTime);
+
+
+void BubbleSort(int * in,int count);
+
+
+int  Sample_hifb_open();
+
+int  TestTDE();
+
+int  SampleLoadBmp(const char *filename, HI_U8 *pu8Virt);
+
+int PubAntiFlicker();
+
+
+void SetRecordCtrlThread(int status);
+void RecordThereadExit();
+
+int  GetAlarmZoneRecordLink();
+/*****************************************************************************
+函数功能: 初始化移动侦测
+输入参数:无
+输出参数:无
+返  回   值:无
+使用说明:
+******************************************************************************/
+void InitSystemMD();
+
+void StopSystemMD();
+
+
+
+/*****************************************************************************
+函数功能: 设置每个通道的移动侦测参数
+输入参数:无
+输出参数:无
+返  回   值:无
+使用说明:
+******************************************************************************/
+void SetMotionDetetionPara(int ch, MD_SETUP MD, int Sensetive);
+
+int StartJPEGDecode(char *filename);
+
+int UmountBlockDevice(int type);
+
+void CheckuDiskStatusProc();
+
+unsigned int ReadRemoteKey();
+
+int GetLastRecordFileName(int ch, int type, char *FileName,ZoneAlarmStatus *alarm);
+
+int g3GetFangZoneAlarm(ZoneAlarmStatus * Status);
+
+int g3GetFangZoneReport(ZoneAlarmStatus * Status);
+
+int NetGetFangZoneAlarm(ZoneAlarmStatus * Status);
+
+int GuiGetFangZoneReport(ZoneAlarmStatus * Status);
+
+int GuiGetFangZoneAlarm(ZoneAlarmStatus * Status);
+
+int NetGetFangZoneReport(ZoneAlarmStatus * Status);
+
+int  SendBackMCUAlarmInfo(ZoneAlarmStatus Status);
+
+int SendBuCheFangCmd(int type, int stortype=-1);
+
+int SendEAVSStatusCmd(unsigned char CHN_STATUS, unsigned char EAVS_STATUS , unsigned char HDD_STATUS , unsigned char NET_STATUS);
+
+int GetPanelSetting(int mcmd, int subcmd);
+
+void GetPanelSettingPart1(void);
+
+void GetPanelSettingPart2(void);
+
+void GetPanelSettingPart3(void);
+
+void GetPanelSettingPart4(void);
+
+int SendPowerOffCmd();
+
+void SendRemoteKey(unsigned int key);
+
+
+
+
+
+
+
+
+void StartMucCommProc();
+
+void TestStartPlayOneFile();
+
+
+int GetBlockDeviceInfo(int type, BlockDevInfo_S * Info);
+
+int  FormatBlockDevice(int type, int Num);
+
+
+int GetSoftWareVersion(TYPE_DEVICE_INFO *version);
+
+unsigned char CaculateWeek(unsigned char day, unsigned char month , unsigned char year);
+
+void PubFeedDog();
+
+int PTZCtrlAction(int ch, int cmd, int para0, int para1);
+
+void TestRS485Comm();
+
+int 	GetZoneAlarmState(int Num);
+
+int StartAlarmHandleProcess();
+
+int StartAlarmShotProcess();
+
+int GetZoneAlarmStateForShot(int Num);
+
+
+void  GetHddWorkSatus(int *FullSatus, int *ErrorStatus);
+
+int SetTw2865DAPowerDown(int Off);
+
+int WriteSystemLog(unsigned char type, void * EventCode);
+
+int NetGetFangZoneUpload(ZoneAlarmStatus * Status);
+
+int  MakeDirectory(char  *directory);
+
+int ShotGetFangZoneAlarm();
+
+unsigned char GetPanelStatus();
+
+int  NetSendBackMCUAlarmInfo(ZoneAlarmStatus Status);
+
+void StartShotAlarmPic();
+
+int sytemupdatepthreadexit();
+
+
+
+void GetVideoLostStatus();
+
+int SetAlarmFileAlarmCode(int ch);
+
+int NetGetAlarmInfo(ZoneAlarmStatus * Status);
+
+int  SendBackMCUMDInfo(unsigned int Status,unsigned int delaytime,unsigned int flag);
+
+int CloseOpenFile();
+
+int SetNVP5000WorkMode(int cmd, NVP5000_SET ModeSet);
+
+void SetAudioVolumeValue(int Value);
+//mode 1: 加锁0:解锁
+int  SetRecordFile(char *filename, int mode);
+
+void HandleAutoSwitchComm(int Type , int Addr , int Value);
+
+void HandleAutoSceneOpt(unsigned char nScene);
+
+void HandleAutoSwitchAction();
+void SystemResourceExit();
+void RebootSystem();
+
+int SmsGetAlarmInfo(ZoneAlarmStatus * Status);
+
+int SetVideoFlipMirror(int mode);
+
+int Setdhcpandmac(int flag);
+
+int GetDiffByTzIdx(unsigned char m_idx_tzname,int *pm_diff_timezone); /*获取时区与UTC秒数差距*/
+int InitDeviceConfigInfo();
+int UpdateDeviceConfigInfo(void *data);
+
+bool GetSpeeker();
+bool ReleaseSpeeker();
+/*
+cmd:false 关闭，true:开启
+return :false:failed  true:success
+*/
+bool AudioInputCtrl(bool cmd);
+/*
+return :false:off  true:on
+*/
+
+bool GetAudioInputStatus();
+
+
+/*
+录像控制
+chn :			通道
+type:			录像类型0 普通录像1 报警录像
+recodeswitch:		录像开关true:开false:关
+controltype:		0: 设置 1:获取
+返回值:		-1 失败  0 成功
+*/
+
+int RecodeControl(unsigned int chn, char type, bool *recodeswitch , char controltype);
+
+/*add by hayson begin 2013.12.26*/
+/*返回无线网卡名字*/
+const char* get_wifi_name();
+/*返回有线网卡名字*/
+const char* get_local_name();
+/*返回MAC和二维码配置文件路径*/
+const char* get_mac_id_file();
+/*返回IE插件版本*/
+const char* get_ie_version();
+
+typedef enum
+{
+	NET_WORK_CARD_LOCAL = 0, /*只支持有线网卡*/
+	NET_WORK_CARD_WIFI,		/*只支持无线网卡*/
+	NET_WORK_CARD_LOCAL_AND_WIFI, /*支持双网卡*/
+}NET_WORK_CARD;
+
+/*返回支持网卡状态*/
+NET_WORK_CARD get_network_support();
+/*add by hayson end 2013.12.26*/
+
+/* add by mike 2014-01-09*/
+const char* get_app_version();
+
+const char* get_uboot_version();
+
+const char* get_kernel_version();
+
+const char* get_fs_version();
+
+/*add by hayson 204.4.16*/
+/*最高分辨率支持*/
+typedef enum
+{
+	HD_720P = 0, 
+	HD_1080P,
+	HD_VGA,
+}NET_HD_REOLUTION;
+/*返回设备最高支持的分辨率*/
+NET_HD_REOLUTION get_hd_resolution();
+
+int get_preset_length();
+int Crtl_ptzPara(int cmd,STRUCT_SET_PTZ_REQUEST *pReq);
+
+void NightMode(bool night);
+const char* GetConfigDir();
+typedef void (*StartRecordSystemCB)();
+typedef struct {
+	bool 	*DoFormat;
+	int		*Process;
+	StartRecordSystemCB  StartRecordCallback;
+}FormatInputParm;
+
+/*
+process:进度 目前只有-1，格式化失败，0，正在格式 100格式化完成。过程进度暂无
+
+*/
+int FormatSD(int *process);
+
+int GetDeviceExpendCapacity();
+
+int OnSetTimezoneByMeshare(int timezone_index, int timezone_offset);
+void RestartNtpClient(int timezone_offset);
+//int ZMD_SYS_FCNTL_NOCLONE(int fd);
+#endif 

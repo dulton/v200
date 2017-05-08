@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="gb2312"?>
+<info>
+	<sku>W-IBH13-P;W-IXA15-WAC;ZH-IXA15-WAC;ZH-IXA15-WAC-S;ZH-IXB15-WAC;ZH-IXC15-WAC;ZH-IXD15-WAC;ZP-IBG11;ZP-IBG11-P;ZP-IBG14;ZP-IBG14-P;ZP-IBH13;ZP-IBH13-P;ZP-IBH13-P-S;ZP-IBH13-W;ZP-IBI13-P;ZP-IBI13-W;ZP-IBI13-W-S;ZP-IBS14;ZP-IDP15;ZP-IDP15-P;ZP-IDP15-W;ZP-IDR13;ZP-IDR13-PA</sku>
+	<version>
+		<uboot>V7.0.0.0</uboot>
+		<kernel>V7.0.0.0</kernel>
+		<rootfs>V7.0.0.0</rootfs>
+		<app>V7.8.0.26</app>	
+	</version>
+	<description>
+####Attention####
+YOU WILL NEED TO UPDATE YOUR APP TO THE LATEST VERSION TO BE COMPATIBLE WITH THIS NEW FIRMWARE.
+####Attention####
+
+An updated encryption method has been integrated into this new firmware, which will vastly enhance the security of your personal privacy in data transmission.
+The new firmware is only compatible with the latest app. 
+Please update to the latest app before upgrading firmware.
+	</description>
+</info>
+
+

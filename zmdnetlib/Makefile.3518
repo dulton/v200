@@ -1,0 +1,120 @@
+##############################################################
+#
+# Copyright (C), ZMODO Technology Corp., Ltd.
+#
+# File Name : Makefile
+#
+# Author : hayson <haysonzeng@zmodo.cn>
+#
+# Create Date : 2013-12-16
+#
+##############################################################
+
+
+#工程目录
+IPNC_INSTALL_DIR = ..
+PROJECT_ROOT	:= $(IPNC_INSTALL_DIR)/zmdnetlib
+
+LIB_NAME = libzmdnet_arm.a
+
+TARGET_PLATFORM = 3518
+
+
+OUT_PUT = output
+
+REVISION = `svn info | grep Revision | cut -d " " -f 2`
+
+#编译工具
+
+# Compile command.
+
+ifeq ($(TARGET_PLATFORM), 3518)
+	CROSS_COMPILER ?= arm-hisiv300-linux-
+endif
+
+
+CC		:= $(CROSS_COMPILER)g++	
+GCC		:= $(CROSS_COMPILER)gcc
+STRIP		:= $(CROSS_COMPILER)strip
+AR		:= $(CROSS_COMPILER)ar
+
+
+
+##############################################################################################################
+#引用工程头文件
+
+INCLUDE_DIR	:= parameter normal_api alarm App record xmlResolve encode blockmanage upgrade at88sc0104 \
+				peripheral filemanage logmanage  ptz neti  snapProcess gui g3modem  wifi \
+				encode decode mediaplayer buffermanage his_api/mpp zmdnetlib message
+			
+				
+#网络库私有头文件				
+LIB_INCLUDE_DIR = ddns  libxml  miniupnpc  nvc  sip  upnp  zmdnetlib  tcplib 
+
+
+###############################################################################################################
+
+#网络库源码			
+PROJECT_DIR	:= $(PROJECT_ROOT)/zmdnetlib \
+				$(PROJECT_ROOT)/tcplib \
+				$(PROJECT_ROOT)/ddns \
+				$(PROJECT_ROOT)/upnp \
+
+
+PROJECT_SRC	:= $(foreach PROJECT_DIR,$(PROJECT_DIR),$(wildcard $(PROJECT_DIR)/*.cpp)) \
+				$(foreach PROJECT_DIR,$(PROJECT_DIR),$(wildcard $(PROJECT_DIR)/*.c))
+
+###############################################################################################################
+
+#中间文件
+OBJECTS_DIR	:= $(PROJECT_ROOT)/objects
+OBJECT_FILE	:= $(addprefix $(OBJECTS_DIR)/, $(addsuffix .o, $(basename $(notdir $(PROJECT_SRC)))))
+DEPFILE:=$(PROJECT_ROOT)/deps
+
+#####################################################################################################################################################
+#编译选项
+
+ifeq ($(TARGET_PLATFORM), 3518)
+
+CFLAGS 		:= -D ZMDISSOAS13NM -D APP3518 -D SUPPORT_WIFI 	-D SUPPORT_AUDIO -D_USE_CRYPT_ -DPJ_IS_LITTLE_ENDIAN=1 \
+			-DPJ_IS_BIG_ENDIAN=0  \
+#			-DREVISION=$(REVISION)
+#-DSUPPORTONVIF			
+			
+endif
+
+
+CFLAGS		+= -I$(IPNC_INSTALL_DIR)/include $(foreach INCLUDE_DIR,$(INCLUDE_DIR),$(addprefix -I$(IPNC_INSTALL_DIR)/include/,$(INCLUDE_DIR)))  
+CFLAGS		+= 	-I$(PROJECT_ROOT)/include $(foreach LIB_INCLUDE_DIR,$(LIB_INCLUDE_DIR),$(addprefix -I$(PROJECT_ROOT)/include/,$(LIB_INCLUDE_DIR)))
+			
+				
+#####################################################################################################################################################
+#$(CC) $(CFLAGS) -c 
+
+.PHONY:all
+all:$(DEPFILE) $(LIB_NAME)
+
+$(DEPFILE):
+	@echo "Generating new dependency file...";
+	@-rm -f $(DEPFILE)
+	@for f in $(PROJECT_SRC); do \
+	OBJ=$(OBJECTS_DIR)/`basename $$f|sed -e 's/\.cpp/\.o/' -e 's/\.c/\.o/'`; \
+          echo $$OBJ: $$f>> $(DEPFILE); \
+          echo '	$(CC) $$(CFLAGS)  -c -o $$@ $$^'>> $(DEPFILE); \
+        done
+
+
+-include $(DEPFILE)
+
+$(LIB_NAME):$(OBJECT_FILE)	
+	$(AR) r $(LIB_NAME)  $(OBJECTS_DIR)/*.o
+	cp -rf $(LIB_NAME) $(IPNC_INSTALL_DIR)/lib
+	mv $(LIB_NAME) $(OUT_PUT)
+
+.PHONY:clean	
+
+clean:
+	rm -rf $(DEPFILE)
+	rm -rf $(OBJECTS_DIR)/*.o
+	rm -rf $(OUT_PUT)/$(LIB_NAME)
+

@@ -1,0 +1,44 @@
+#!/bin/sh
+
+echo "Merge Upgrade file begin..."
+
+ROOTFS_DIR=$1
+TARGETFILE=$2
+KERNELFILE=$3
+VERSION=$4
+EDITION=$5
+
+PRODUCT=3511T
+
+UPGRADE_DIR=./UpgradeFile
+
+
+echo "ROOTFS_DIR = ${ROOTFS_DIR}"
+echo "TARGETFILE = ${TARGETFILE}"
+
+
+echo "mkfs.jffs2 -d ${ROOTFS_DIR} -l -e 0x10000 -o ${TARGETFILE}"
+
+./mkfs.jffs2 -d ${ROOTFS_DIR} -l -e 0x10000 -o ${TARGETFILE}
+
+echo "make rootfs successful!"
+
+#echo "${VERSION}" > ${ROOTBOX}/config/softversion
+
+#echo "${MERGEFILE} ${KERNELFILE} ${TARGETFILE} ${PRODUCT}-KNL.crc ${VERSION}"
+
+#${MERGEFILE} ${KERNELFILE} ${TARGETFILE} ${PRODUCT}-S-3510-KNL-${VERSION}.crc ${VERSION}
+
+#./MakeUpgradeFile2 ${KERNELFILE} ${TARGETFILE} ${UPGRADE_DIR}/${PRODUCT}-KNL.crc ${VERSION} ${EDITION}
+
+#echo "./MakeUpgradeFile ./dvssbchen ${UPGRADE_DIR}/${PRODUCT}-S-3510-APP.crc ${VERSION}"
+
+#./MakeUpgradeFile ./dvssbchen ${UPGRADE_DIR}/${PRODUCT}-S-3510-APP.crc ${VERSION} ${EDITION}
+
+#chmod -f 777 ${UPGRADE_DIR}/${PRODUCT}-S-3510-APP.crc
+
+#chmod -f 777 ${UPGRADE_DIR}/${PRODUCT}-KNL.crc
+
+#echo "Merge upgrade file sucessful!"
+
+#echo "Merge Upgrade file end..."

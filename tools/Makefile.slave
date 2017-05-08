@@ -1,0 +1,344 @@
+
+
+
+CROSS_COMPILER:=arm-hismall-linux-
+CC:=$(CROSS_COMPILER)g++  #-uc
+GCC:=$(CROSS_COMPILER)gcc
+STRIP:=$(CROSS_COMPILER)strip
+CFLAGS:=-Wall  -Werror 	#-lstdc++
+LDFLAGS:=
+PROJECT_ROOT= .
+#$(shell pwd)
+RELEASE_DIR:=/home/freeman/hisilon_3511/Hi3511_VSSDK_V1.1.2.1/
+EXE_NAME:=FocusApp3511
+
+########################################################
+#发布文件系统路径
+RELEASE_APP=/home/freeman/hisilon_3511/Hi3511_VSSDK_V1.1.2.1/release_app
+RELEASE_ROOTFS=/home/freeman/hisilon_3511/Hi3511_VSSDK_V1.1.2.1/REL_FLASH/rootfs-LESS_REL
+
+UPGRADE_DIR:=${RELEASE_DIR}/UpgradeFile
+
+USELIB_DIR=./lib
+
+##############################################################
+#在下面增加相关模块的源文件和头文件
+##############################################################
+#main
+MAIN_DIR:=$(PROJECT_ROOT)
+MAIN_SRC:=$(MAIN_DIR)/main.cpp\
+	  $(MAIN_DIR)/ModuleFuncInterface.cpp
+	  
+#$(MAIN_DIR)/publicfunction.cpp
+
+PROJECT_SRC:=$(MAIN_SRC)
+INCLUDE_DIR:=-I$(MAIN_DIR)/include
+
+INCLUDE_DIR+=-I$(MAIN_DIR)/jpg_include
+
+LDFLAGS += -L ./JPGLIB -ljpeg
+
+LDFLAGS += -L ./lib -lencrpt -lencode -ldecode -lnormalapi -lupgrade -lfilemanage -lblkdevmanage
+
+#INCLUDE_DIR+=-I../pub/include
+
+
+#通用api
+NORMAL_API_DIR:=$(PROJECT_ROOT)/normal_api
+#NORMAL_API_SRC:=$(NORMAL_API_DIR)/AiAo_Api.cpp $(NORMAL_API_DIR)/AVenc_Api.cpp \
+#	$(NORMAL_API_DIR)/ViVo_Api.cpp $(NORMAL_API_DIR)/CommonFunction.cpp \
+#	$(NORMAL_API_DIR)/AVdec_Api.cpp $(NORMAL_API_DIR)/AudioManage.cpp
+	
+PROJECT_SRC+=$(NORMAL_API_SRC)
+INCLUDE_DIR+=-I$(NORMAL_API_DIR)/include
+
+STATIC_ASF_LIB+=$(USELIB_DIR)/libnormalapi.a
+
+#hi3511
+INCLUDE_DIR+=-I$(PROJECT_ROOT)/his_api/include
+
+#GUI
+XMLPARSER_SRC=$(PROJECT_ROOT)/xmlResolve/lib/guixmlparser.cpp\
+	$(PROJECT_ROOT)/xmlResolve/lib/tinystr.cpp\
+	$(PROJECT_ROOT)/xmlResolve/lib/tinyxmlerror.cpp\
+	$(PROJECT_ROOT)/xmlResolve/lib/tinyxml.cpp\
+        $(PROJECT_ROOT)/xmlResolve/lib/tinyxmlparser.cpp
+        
+
+#        $(PROJECT_ROOT)/xmlResolve/lib/stringlib.cpp\	
+PROJECT_SRC +=$(XMLPARSER_SRC)	
+	
+XMLPARSER_INC=$(PROJECT_ROOT)/xmlResolve/include	
+
+STATIC_ASF_LIB+=$(USELIB_DIR)/libtinyxml.a	
+
+INCLUDE_DIR+=-I$(XMLPARSER_INC)
+
+GUI_SRC=$(PROJECT_ROOT)/gui/characterLoad.cpp\
+	$(PROJECT_ROOT)/gui/DrawGraphicControl.cpp\
+	$(PROJECT_ROOT)/gui/VouDraw.cpp\
+	$(PROJECT_ROOT)/gui/GfxNavigation.cpp\
+	$(PROJECT_ROOT)/gui/pictureLoad.cpp\
+	$(PROJECT_ROOT)/gui/gif.cpp\
+	$(PROJECT_ROOT)/gui/chinesespell.cpp\
+	
+#	$(PROJECT_ROOT)/gui/GuiBusiness.cpp\
+#	$(PROJECT_ROOT)/gui/GuiHandle.cpp	
+	
+PROJECT_SRC +=$(GUI_SRC)	
+
+INCLUDE_DIR+=-I$(PROJECT_ROOT)/gui/include
+#end GUI
+
+#Config
+CONFIG_DIR :=$(PROJECT_ROOT)/parameter
+CONFIG_SRC :=$(CONFIG_DIR)/parametermanage.cpp
+
+PROJECT_SRC +=$(CONFIG_SRC)
+INCLUDE_DIR += -I$(CONFIG_DIR)/include
+
+#videooutput
+LDFLAGS+= -lm
+
+
+#videoencoder
+VIDEOENCODER_DIR:=$(PROJECT_ROOT)/encode
+#VIDEOENCODER_SRC:=$(VIDEOENCODER_DIR)/BufferManage.cpp $(VIDEOENCODER_DIR)/VideoEncode.cpp $(VIDEOENCODER_DIR)/FrontOsd.cpp\
+#	$(VIDEOENCODER_DIR)/JpegSnap.cpp
+PROJECT_SRC+=$(VIDEOENCODER_SRC)
+INCLUDE_DIR+=-I$(VIDEOENCODER_DIR)/include
+
+STATIC_ASF_LIB+=$(USELIB_DIR)/libdecode.a
+
+LDFLAGS+=-lpthread
+
+#decode 
+VIDEODECODE_DIR:=$(PROJECT_ROOT)/decode
+#VIDEODECODE_SRC:=$(VIDEODECODE_DIR)/VideoDecode.cpp $(VIDEODECODE_DIR)/Synchronize.cpp $(VIDEODECODE_DIR)/HandlePlayControl.cpp
+PROJECT_SRC+=$(VIDEODECODE_SRC)
+INCLUDE_DIR+=-I$(VIDEODECODE_DIR)/include
+
+STATIC_ASF_LIB+=$(USELIB_DIR)/libdecode.a
+
+#File Manage
+FILEMANAGE_DIR:=$(PROJECT_ROOT)/filemanage
+#FILEMANAGE_SRC:=$(FILEMANAGE_DIR)/filemanage.cpp
+#PROJECT_SRC+=$(FILEMANAGE_SRC)
+INCLUDE_DIR+=-I$(FILEMANAGE_DIR)/include
+
+#record
+RECORD_DIR:=$(PROJECT_ROOT)/record
+RECORD_SRC:=$(RECORD_DIR)/recordfileheader.cpp $(RECORD_DIR)/recordmodule.cpp 
+#$(RECORD_DIR)/BlockDeviceManage.cpp
+PROJECT_SRC+=$(RECORD_SRC)
+INCLUDE_DIR+=-I$(RECORD_DIR)/include
+
+
+#块设备管理
+BLKMANAGE_DIR:=$(PROJECT_ROOT)/blockmanage
+#BLKMANAGE_SRC:=$(BLKMANAGE_DIR)/BlockDeviceManage.cpp
+#PROJECT_SRC+=$(BLKMANAGE_SRC)
+INCLUDE_DIR+= -I$(BLKMANAGE_DIR)/include
+
+#videodecoder
+VIDEO_DECODE_DIR:=$(PROJECT_ROOT)/decode
+
+
+
+
+#ini profile parse
+#INIPARSE_DIR 	:=$(PROJECT_ROOT)/txtparser
+#INIPARSE_SRC	:=$(INIPARSE_DIR)/dictionary.cpp  $(INIPARSE_DIR)/iniparser.cpp $(INIPARSE_DIR)/strlib.cpp    
+
+#$(INIPARSE_DIR)/ParseIniFile.cpp
+
+#PROJECT_SRC += $(INIPARSE_SRC)
+#INCLUDE_DIR += -I$(INIPARSE_DIR)/include
+
+
+#log module
+#LOG_DIR:=$(PROJECT_ROOT)/logmanage
+#LOG_SRC:=$(LOG_DIR)/logmanage.cpp
+#PROJECT_SRC+=$(LOG_SRC)
+#INCLUDE_DIR+=-I$(LOG_DIR)/include
+
+#Application file
+APP_DIR:=$(PROJECT_ROOT)/App
+APP_SRC:=$(APP_DIR)/FeedDog.cpp \
+	$(APP_DIR)/TdFeedDog.cpp \
+	$(APP_DIR)/MyList.cpp \
+	$(APP_DIR)/Lock.cpp \
+
+#	$(APP_DIR)/EncodeManage.cpp 
+	
+#$(APP_DIR)/GpioManage.cpp  
+
+PROJECT_SRC+=$(APP_SRC)
+INCLUDE_DIR+=-I$(APP_DIR)/include
+
+#upgrade 
+SYSUPGRADE_DIR:=$(PROJECT_ROOT)/upgrade
+#SYSUPGRADE_SRC:=$(SYSUPGRADE_DIR)/crc32.cpp $(SYSUPGRADE_DIR)/upgrademodule.cpp
+PROJECT_SRC+=$(SYSUPGRADE_SRC)
+INCLUDE_DIR+=-I$(SYSUPGRADE_DIR)/include
+
+#upgrade lib
+STATIC_ASF_LIB+=$(USELIB_DIR)/libupgrade.a
+
+
+#外部设备
+
+PERIPHERAL_DIR:=$(PROJECT_ROOT)/peripheral
+PERIPHERAL_SRC:=$(PERIPHERAL_DIR)/serial/ComTransmit.cpp\
+		$(PERIPHERAL_DIR)/realtime/RealTime.cpp \
+		$(PERIPHERAL_DIR)/realtime/Ds1337Api.cpp\
+		$(PERIPHERAL_DIR)/ir/HiIRApi.cpp\
+		$(PERIPHERAL_DIR)/GpioApi.cpp\
+		$(PERIPHERAL_DIR)/vad/VideoADCtrl.cpp\
+		$(PERIPHERAL_DIR)/mouse/InputDevice.cpp
+		
+		
+PROJECT_SRC +=$(PERIPHERAL_SRC)
+INCLUDE_DIR += -I$(PERIPHERAL_DIR)/include
+
+
+ENCRYPT_DIR:=$(PROJECT_ROOT)/at88sc0104
+
+#ENCRYPT_SRC=$(ENCRYPT_DIR)/AT88SC0104.cpp \
+ #    	$(ENCRYPT_DIR)/gpa.cpp\
+ #   	$(ENCRYPT_DIR)/gpioiic.cpp
+
+ENCRYPT_INC=$(ENCRYPT_DIR)/include/
+
+PROJECT_SRC +=$(ENCRYPT_SRC)
+INCLUDE_DIR += -I$(ENCRYPT_INC)
+
+##############################################################
+
+
+####################################################################
+#在此增加各种库
+####################################################################
+STATIC_LIB_LIST:=
+ifeq ($(RELEASE), RELAPP)
+	STATIC_LIB_PATH:=$(PROJECT_ROOT)/his_api/lib.lessrel
+else 
+	STATIC_LIB_PATH:=$(PROJECT_ROOT)/his_api/lib.rel
+endif 
+
+STATIC_LIB_LIST+=$(STATIC_LIB_PATH)/libmpi.a \
+	$(STATIC_LIB_PATH)/lib_VoiceEngine.a \
+ 	$(STATIC_LIB_PATH)/lib_amr_spc.a \
+	$(STATIC_LIB_PATH)/lib_amr_fipop.a \
+	$(STATIC_LIB_PATH)/lib_aec.a \
+	$(STATIC_LIB_PATH)/libloadbmp.a \
+	$(STATIC_LIB_PATH)/libtde.a \
+
+#	$(STATIC_LIB_PATH)/libjpeg.a
+	
+#STATIC_LIB_LIST+=$(STATIC_ASF_LIB)
+
+####################################################################
+
+ifeq ($(RELEASE), RELAPP)
+	CFLAGS +=-DRELEASE_APP
+	INCLUDE_DIR+=-DRELEASE_SOFTWARE=1
+	INCLUDE_DIR+=-DSYSTEM_VER="\"${VERSION}\""	
+else
+	ifeq ($(RELEASE), RELFS)
+		INCLUDE_DIR+=-DRELEASE_SOFTWARE=1
+#		INCLUDE_DIR+=-DSYSTEM_VER="\"${VERSION}\""	
+	else
+#		INCLUDE_DIR+=-DSYSTEM_VER="\"0.00.01\""
+	endif
+endif
+
+ifeq ($(UPGRADE), 1)
+	INCLUDE_DIR+=-DUPGRADE_SOFTWARE=1
+endif
+
+#his demo board
+ifeq ($(RELEASE),DEMO)
+#	INCLUDE_DIR+=-DHIS_DEMB=1
+endif
+
+CFLAGS+=$(INCLUDE_DIR)
+LDFLAGS+=$(STATIC_LIB_LIST)
+OBJECTS_DIR:=$(PROJECT_ROOT)/objects
+OBJECT_FILE:=$(addprefix $(OBJECTS_DIR)/, $(addsuffix .o, $(basename $(notdir $(PROJECT_SRC)))))
+DEPFILE:=$(PROJECT_ROOT)/deps
+
+.PHONY:all
+all:$(DEPFILE) $(EXE_NAME) 
+
+$(DEPFILE):
+	@echo "Generating new dependency file...";
+	@-rm -f $(DEPFILE)
+	@for f in $(PROJECT_SRC); do \
+	OBJ=$(OBJECTS_DIR)/`basename $$f|sed -e 's/\.cpp/\.o/' -e 's/\.c/\.o/'`; \
+          echo $$OBJ: $$f>> $(DEPFILE); \
+          echo '	$(CC) $$(CFLAGS)  -c -o $$@ $$^'>> $(DEPFILE); \
+        done
+
+
+.PHONY:lib
+LIB_SRC=filemanage encode decode normal_api upgrade blockmanage at88sc0104 xmlResolve
+lib:
+	@echo "compile new lib file ...."
+#首先清除之前的编译然后在编译以确保安全
+	@for f in $(LIB_SRC); do \
+	make -C $$f clean;\
+	make -C $$f || exit;\
+	done 
+
+#$(DEPFILE):$(PROJECT_SRC) Makefile
+#	@echo "Generating new dependency file...";
+#	@-rm -f $(DEPFILE)
+#	@for f in $(PROJECT_SRC); do \
+#	OBJ=$(OBJECTS_DIR)/`basename $$f|sed -e 's/\.cpp/\.o/' -e 's/\.c/\.o/'`; \
+#          echo $$OBJ: $$f>> $(DEPFILE); \
+#          echo '	$(CC) $$(CFLAGS)  -c -o $$@ $$^'>> $(DEPFILE); \
+#        done
+
+
+-include $(DEPFILE)
+
+$(EXE_NAME):mkdir_release $(OBJECT_FILE)	
+	$(CC) $(CFLAGS)  $(OBJECT_FILE) -o "$@" $(LDFLAGS)
+	cp  ./$(EXE_NAME) $(NFS_DIR)	
+#	cp  ./$(EXE_NAME) ../release_app
+#	cp -Rf ./resource/icon	 $(NFS_DIR)
+#	cp -Rf ./resource/fontfile	 $(NFS_DIR)
+#	cp -Rf ./resource/xmlfile $(NFS_DIR)
+#	$(STRIP) $(EXE_NAME)	
+		
+ifeq ($(RELEASE),RELAPP)
+	cp $(EXE_NAME) $(RELEASE_APP)/
+	./CreateSoftVersion  $(RELEASE_APP)/   2   ${VERSION} 
+#	cp -Rf $(NFS_DIR)/xmlfile/FOCUS3511.xml  $(RELEASE_APP)/xmlfile
+#	cp -Rf $(NFS_DIR)/icon $(RELEASE_APP)/
+#	cp -Rf $(NFS_DIR)/fontfile $(RELEASE_APP)/
+#	./mkapp $(RELEASE_APP) ${UPGRADE_DIR}/app-focus-${VERSION}.img
+#	./makeupdatefile ${UPGRADE_DIR}/app-focus-${VERSION}.img  ${UPGRADE_DIR}/FOCUS-MDVR-APP.CRC ${VERSION}
+endif
+
+ifeq ($(RELEASE),RELFS)
+	./CreateSoftVersion  $(RELEASE_ROOTFS)/var/   1   ${VERSION} 
+	./mkrootfs $(RELEASE_ROOTFS) ${UPGRADE_DIR}/rootfs-focus-${VERSION}.img
+	./makeupdatefile ${UPGRADE_DIR}/rootfs-focus-${VERSION}.img ${UPGRADE_DIR}/FOCUS-ROOTFS.CRC ${VERSION}
+endif
+
+
+.PHONY:mkdir_release
+mkdir_release:
+#	@-mkdir -p  $(RELEASE_DIR)
+#	@cp -ru $(PROJECT_ROOT)/font $(RELEASE_DIR)/
+
+
+.PHONY:clean
+clean:
+	rm -rf $(EXE_NAME)
+	rm -rf $(DEPFILE)
+	rm -rf $(OBJECTS_DIR)/*.o
+
+

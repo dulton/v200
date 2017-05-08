@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="gb2312"?>
+<info>
+	<sku>SD-H2903;</sku>
+	<version>
+		<uboot>V8.0.0.0</uboot>
+		<kernel>V8.0.0.0</kernel>
+		<rootfs>V8.0.0.0</rootfs>
+		<app>V8.1.0.10</app>	
+	</version>
+	<description>
+####Attention####
+NEED TO UPDATE YOUR APP TO THE LATEST VERSION TO ACCESS THIS NEW FIRMWARE.
+####Attention####
+
+The device will switch to our new server platform for better performance with more features after this update.
+Please update to the latest app version before upgrading firmware because this new firmware is only compatible with the latest app version.
+	</description>
+</info>
+
+

@@ -1,0 +1,18 @@
+[NORMAL_IPC,NORMAL_IPC,normal_ipc.xml,normal_ipc,3518e_ipc,V7.8.0.42,0]
+[NEW_NORMAL_IPC,NEW_NORMAL_IPC,new_normal_ipc.xml,new_normal_ipc,3518e_ipc_new,V7.9.0.28,0]
+[PT_IPC,PT_IPC,pt_ipc.xml,pt_ipc,3518e_ipc,V7.2.0.31001,0]
+[H42PT_IPC,H42PT_IPC,pth42_ipc.xml,pth42_ipc,3518e_ipc_new,V7.13.0.15001,0]
+[AR9271_IPC,AR9271_IPC,ar9271.xml,card_ipc,3518e_ipc,V7.1.0.8,0]
+[V74_NORMAL_IPC,V74_NORMAL_IPC,v74_normal.xml,normal_ipc,3518e_ipc,V7.4.0.18,0]
+[SPOE_IPC,SPOE_IPC,spoe_ipc.xml,spoe_ipc,3518e_spoe,V7.0.0.6,0]
+[H42SPOE_IPC,H42SPOE_IPC,spoeh42_ipc.xml,spoeh42_ipc,3518eh42-spoe,V7.7.0.05002,0]
+[V200_NORMAL_IPC,V200_NORMAL_IPC,v200_normal.xml,v200_normal,v200_normal,V8.0.0.01003,1]
+{
+####Attention####
+NEED TO UPDATE YOUR APP TO THE LATEST VERSION TO ACCESS THIS NEW FIRMWARE.
+####Attention####
+
+The device will switch to our new server platform for better performance with more features after this update.
+Please update to the latest app version before upgrading firmware because this new firmware is only compatible with the latest app version.
+
+}

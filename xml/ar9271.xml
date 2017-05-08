@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="gb2312"?>
+<info>
+	<sku>CH-IXA1D-WAC.bin;CH-IXB1D-WAC.bin;CH-IXC1D-WAC.bin;ZH-IXD1D-WAC-S.bin;ZM-SH77B001-WAC.bin</sku>
+	<version>
+		<uboot>V7.0.0.0</uboot>
+		<kernel>V7.0.0.0</kernel>
+		<rootfs>V7.0.0.0</rootfs>
+		<app>V7.1.0.8</app>	
+	</version>
+	<description>
+####Attention####
+YOU WILL NEED TO UPDATE YOUR APP TO THE LATEST VERSION TO BE COMPATIBLE WITH THIS NEW FIRMWARE.
+####Attention####
+
+An updated encryption method has been integrated into this new firmware, which will vastly enhance the security of your personal privacy in data transmission.
+The new firmware is only compatible with the latest app. 
+Please update to the latest app before upgrading firmware.
+	</description>
+</info>

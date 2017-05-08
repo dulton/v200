@@ -1,0 +1,26 @@
+#!/bin/sh
+
+echo "Merge Upgrade file begin..."
+
+TARGET_DIR=$1
+TARGETFILE=$2
+
+if [ ${TARGETFILE} == "" ]; then
+	echo "input parameter error!"
+fi
+
+PRODUCT=3518T
+
+UPGRADE_DIR=./UpgradeFile
+
+echo "TARGET_DIR = ${TARGET_DIR}"
+echo "TARGETFILE = ${TARGETFILE}"
+
+echo "mkfs.jffs2 -d ${TARGET_DIR} -l -e 0x10000 -o ${TARGETFILE}"
+
+./tools/mkfs.jffs2 -d ${TARGET_DIR} -l -e 0x10000 -o ${TARGETFILE}
+
+chmod -f 777 ${TARGETFILE}
+
+echo "make app successful!"
+

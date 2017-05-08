@@ -1,0 +1,124 @@
+/home/harvey/3518/3518/objects/main.o: /home/harvey/3518/3518/main.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/ModuleFuncInterface.o: /home/harvey/3518/3518/ModuleFuncInterface.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/AiAo_Api.o: /home/harvey/3518/3518/normal_api/AiAo_Api.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/AVenc_Api.o: /home/harvey/3518/3518/normal_api/AVenc_Api.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/ViVo_Api.o: /home/harvey/3518/3518/normal_api/ViVo_Api.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/CommonFunction.o: /home/harvey/3518/3518/normal_api/CommonFunction.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/AVdec_Api.o: /home/harvey/3518/3518/normal_api/AVdec_Api.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/AudioManage.o: /home/harvey/3518/3518/normal_api/AudioManage.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/guixmlparser.o: /home/harvey/3518/3518/xmlResolve/guixmlparser.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/tinystr.o: /home/harvey/3518/3518/xmlResolve/tinystr.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/tinyxmlerror.o: /home/harvey/3518/3518/xmlResolve/tinyxmlerror.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/tinyxml.o: /home/harvey/3518/3518/xmlResolve/tinyxml.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/tinyxmlparser.o: /home/harvey/3518/3518/xmlResolve/tinyxmlparser.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/parametermanage.o: /home/harvey/3518/3518/parameter/parametermanage.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/EncodeManage.o: /home/harvey/3518/3518/encode/EncodeManage.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/BufferManage.o: /home/harvey/3518/3518/encode/BufferManage.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/VideoEncode.o: /home/harvey/3518/3518/encode/VideoEncode.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/Video_MD.o: /home/harvey/3518/3518/encode/Video_MD.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/Video_comm.o: /home/harvey/3518/3518/encode/Video_comm.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/Video_ISP.o: /home/harvey/3518/3518/encode/Video_ISP.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/JpegSnap.o: /home/harvey/3518/3518/encode/JpegSnap.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/FrontOsd.o: /home/harvey/3518/3518/encode/FrontOsd.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/Audio.o: /home/harvey/3518/3518/encode/Audio.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/filemanage.o: /home/harvey/3518/3518/filemanage/filemanage.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/BlockDeviceManage.o: /home/harvey/3518/3518/blockmanage/BlockDeviceManage.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/recordfileheader.o: /home/harvey/3518/3518/record/recordfileheader.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/recordmodule.o: /home/harvey/3518/3518/record/recordmodule.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/FeedDog.o: /home/harvey/3518/3518/App/FeedDog.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/TdFeedDog.o: /home/harvey/3518/3518/App/TdFeedDog.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/MyList.o: /home/harvey/3518/3518/App/MyList.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/Lock.o: /home/harvey/3518/3518/App/Lock.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/WatchDog.o: /home/harvey/3518/3518/App/WatchDog.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/crc32.o: /home/harvey/3518/3518/upgrade/crc32.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/upgrademodule.o: /home/harvey/3518/3518/upgrade/upgrademodule.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/ComTransmit.o: /home/harvey/3518/3518/peripheral/serial/ComTransmit.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/RealTime.o: /home/harvey/3518/3518/peripheral/realtime/RealTime.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/Ds1337Api.o: /home/harvey/3518/3518/peripheral/realtime/Ds1337Api.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/HiIRApi.o: /home/harvey/3518/3518/peripheral/ir/HiIRApi.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/GpioApi.o: /home/harvey/3518/3518/peripheral/GpioApi.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/VideoADCtrl.o: /home/harvey/3518/3518/peripheral/vad/VideoADCtrl.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/InputDevice.o: /home/harvey/3518/3518/peripheral/mouse/InputDevice.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/McuCommunication.o: /home/harvey/3518/3518/peripheral/mcu/McuCommunication.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/VGAHi3120.o: /home/harvey/3518/3518/peripheral/VGA/VGAHi3120.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/TW2865.o: /home/harvey/3518/3518/peripheral/vad/TW2865.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/nvp5000.o: /home/harvey/3518/3518/peripheral/VGA/nvp5000.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/vad5150.o: /home/harvey/3518/3518/peripheral/vad/vad5150.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/wm8731.o: /home/harvey/3518/3518/peripheral/vad/wm8731.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/mt9d131.o: /home/harvey/3518/3518/peripheral/vad/mt9d131.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/ov7725.o: /home/harvey/3518/3518/peripheral/vad/ov7725.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/CATsha204.o: /home/harvey/3518/3518/at88sc0104/CATsha204.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/sha256.o: /home/harvey/3518/3518/at88sc0104/sha256.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/AlarmHandle.o: /home/harvey/3518/3518/alarm/AlarmHandle.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/logmanage.o: /home/harvey/3518/3518/logmanage/logmanage.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/g3gmodem_guea.o: /home/harvey/3518/3518/g3modem/g3gmodem_guea.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/ping.o: /home/harvey/3518/3518/g3modem/ping.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/selectcard.o: /home/harvey/3518/3518/g3modem/selectcard.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/g3dialup.o: /home/harvey/3518/3518/g3modem/g3dialup.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/g3modeswitch.o: /home/harvey/3518/3518/g3modem/g3modeswitch.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/g3dialupman.o: /home/harvey/3518/3518/g3modem/g3dialupman.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/g3createdialf.o: /home/harvey/3518/3518/g3modem/g3createdialf.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/systemlog.o: /home/harvey/3518/3518/g3modem/systemlog.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
+/home/harvey/3518/3518/objects/ptz.o: /home/harvey/3518/3518/ptz/ptz.cpp
+	arm-hisiv100nptl-linux-g++	 $(CFLAGS)  -c -o $@ $^
